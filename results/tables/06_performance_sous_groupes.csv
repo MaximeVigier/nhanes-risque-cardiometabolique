@@ -1,0 +1,13 @@
+dimension,groupe,n,prévalence,ROC AUC,AP,rappel@seuil
+Sexe,Femme,701.0,0.341,0.694,0.498,0.519
+Sexe,Homme,651.0,0.309,0.618,0.395,0.423
+Âge,"(19, 35]",395.0,0.187,0.633,0.28,0.324
+Âge,"(35, 50]",403.0,0.323,0.621,0.412,0.438
+Âge,"(50, 65]",329.0,0.426,0.596,0.478,0.507
+Âge,"(65, 80]",225.0,0.427,0.562,0.498,0.448
+Origine,Asiatique non hispanique,165.0,0.23,0.638,0.373,0.395
+Origine,Autre / multiracial,48.0,0.375,0.493,0.377,0.389
+Origine,Blanc non hispanique,505.0,0.35,0.66,0.477,0.492
+Origine,Hispanique (Mexique),201.0,0.403,0.622,0.506,0.506
+Origine,Hispanique (autre),144.0,0.292,0.626,0.376,0.429
+Origine,Noir non hispanique,289.0,0.291,0.681,0.408,0.429

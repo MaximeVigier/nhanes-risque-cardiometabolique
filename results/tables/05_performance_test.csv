@@ -1,0 +1,3 @@
+,AP (PR-AUC),ROC AUC,Brier,rappel@top10%,lift@top10%,rappel@top20%,lift@top20%,rappel@top30%,lift@top30%
+Régression logistique,0.442,0.658,0.231,0.139,1.388,0.291,1.457,0.434,1.446
+Gradient boosting,0.435,0.649,0.212,0.136,1.366,0.277,1.388,0.414,1.377

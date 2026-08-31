@@ -1,0 +1,31 @@
+# Environnement du projet — Risque cardiométabolique / NHANES
+# Python 3.14 — versions figées après installation (août 2026)
+# Installation : python -m venv .venv && .venv/Scripts/pip install -r requirements.txt
+
+# Données (.XPT lus par pandas.read_sas, aucun paquet SAS requis)
+pandas==3.0.5
+numpy==2.5.2
+pyarrow==25.0.1
+requests==2.34.2
+
+# Machine learning
+scikit-learn==1.9.0
+xgboost==3.4.1
+shap==0.52.0
+scipy==1.18.1
+
+# Deep learning (notebook 07) — Keras 3 avec backend PyTorch (KERAS_BACKEND=torch)
+keras==3.15.1
+torch==2.13.0        # version CPU : --index-url https://download.pytorch.org/whl/cpu
+
+# Visualisation
+matplotlib==3.11.1
+seaborn==0.13.2
+
+# Notebooks
+jupyterlab==4.6.3
+ipykernel==7.3.0
+nbconvert==7.17.1
+
+# Tests
+pytest==9.1.1

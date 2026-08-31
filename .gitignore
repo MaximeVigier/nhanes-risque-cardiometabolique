@@ -1,0 +1,29 @@
+# Données — hors versionnement (téléchargées / dérivées, volumineuses)
+data/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Modèles entraînés
+models/
+!models/.gitkeep
+*.joblib
+*.pkl
+*.keras
+*.h5
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Outils
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,4 @@
+,AP (PR-AUC),ROC AUC,Brier
+Régression logistique,0.442,0.658,0.231
+Gradient boosting,0.435,0.649,0.212
+Réseau de neurones (MLP),0.436,0.646,0.236
