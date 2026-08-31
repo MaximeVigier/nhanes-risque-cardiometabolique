@@ -1,6 +1,5 @@
 # Risque cardiométabolique et habitudes de vie — NHANES
 
-![tests](https://github.com/MaximeVigier/nhanes-risque-cardiometabolique/actions/workflows/tests.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.14-blue)
 ![Licence](https://img.shields.io/badge/licence-MIT-green)
 
