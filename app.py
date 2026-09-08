@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 # Configuration de la page Streamlit
 st.set_page_config(
@@ -46,7 +47,11 @@ if st.checkbox("Afficher l'analyse SHAP", value=False):
 
 # Section 'Performance par sous-groupe'
 st.subheader("👥 Performance par sous-groupe")
-st.image("./results/figures/06_performance_sous_groupes.png", caption="Performance du modèle en fonction du sexe, de l'âge et de l'origine.", use_container_width=True)
+subgroup_fig = "./results/figures/03_prevalence_sous_groupes.png"
+if os.path.exists(subgroup_fig):
+    st.image(subgroup_fig, caption="Prévalence du syndrome métabolique par sous-groupe (sexe, âge, origine).", use_container_width=True)
+else:
+    st.info("Figure de performance par sous-groupe non disponible dans ce projet.")
 
 # Partie interactive avec le modèle
 st.subheader("🔮 Prédiction avec le modèle")
