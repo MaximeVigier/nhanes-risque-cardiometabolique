@@ -32,10 +32,12 @@ def prevalence_par_groupe(df: pd.DataFrame, col: str, *, ax=None):
     g = (df.groupby(col)["cible"].agg(["mean", "count"])
            .sort_values("mean"))
     ax.barh(g.index.astype(str), 100 * g["mean"], color=PALETTE["négatif"])
+    ax.set_xlim(0, max(100 * g["mean"]) * 1.35)
     for i, (m, n) in enumerate(zip(g["mean"], g["count"])):
-        ax.text(100 * m + 0.5, i, f"{100*m:.0f}%  (n={n})", va="center", fontsize=9)
+        ax.text(100 * m + max(100 * g["mean"]) * 0.03, i, f"{100*m:.0f}%  (n={n})", va="center", fontsize=8)
     ax.set_xlabel("Prévalence du syndrome métabolique (%)")
     ax.set_ylabel("")
+    ax.tick_params(axis="y", labelsize=8)
     return ax
 
 
