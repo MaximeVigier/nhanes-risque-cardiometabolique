@@ -31,4 +31,4 @@ nbconvert==7.17.1
 pytest==9.1.1
 
 # Streamlit pour l'application de démonstration
-streamlit==1.38.0
+streamlit==1.56.0
