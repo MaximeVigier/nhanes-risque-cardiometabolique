@@ -34,19 +34,19 @@ with col3:
 
 # Figure clé : apport par bloc de variables
 st.subheader("📊 Apport incrémental des blocs de variables")
-st.image("./results/figures/05_apport_par_bloc.png", caption="À âge et catégorie sociale donnés, l'alimentation déclarée n'ajoute presque rien au pouvoir prédictif.", use_column_width=True)
+st.image("./results/figures/05_apport_par_bloc.png", caption="À âge et catégorie sociale donnés, l'alimentation déclarée n'ajoute presque rien au pouvoir prédictif.", use_container_width=True)
 
 # Section SHAP si disponible
 shap_fig = "./results/figures/05_shap_summary.png"
 if st.checkbox("Afficher l'analyse SHAP", value=False):
     try:
-        st.image(shap_fig, caption="Importance des variables avec SHAP (en régression logistique)", use_column_width=True)
+        st.image(shap_fig, caption="Importance des variables avec SHAP (en régression logistique)", use_container_width=True)
     except Exception as e:
         st.warning(f"Impossible d'afficher la figure SHAP: {e}")
 
 # Section 'Performance par sous-groupe'
 st.subheader("👥 Performance par sous-groupe")
-st.image("./results/figures/06_performance_sous_groupes.png", caption="Performance du modèle en fonction du sexe, de l'âge et de l'origine.", use_column_width=True)
+st.image("./results/figures/06_performance_sous_groupes.png", caption="Performance du modèle en fonction du sexe, de l'âge et de l'origine.", use_container_width=True)
 
 # Partie interactive avec le modèle
 st.subheader("🔮 Prédiction avec le modèle")
