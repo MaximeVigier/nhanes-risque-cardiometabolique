@@ -8,7 +8,7 @@ import seaborn as sns
 # Configuration de la page Streamlit
 st.set_page_config(
     page_title="NHANES Risque Cardiométabolique",
-    page_icon=" heart",
+    page_icon="❤️",
     layout="centered"
 )
 
