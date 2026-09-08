@@ -56,45 +56,62 @@ else:
 # Partie interactive avec le modèle
 st.subheader("🔮 Prédiction avec le modèle")
 
-# Vérifions si le modèle est utilisable
+# Le modèle sauvegardé est un dict {pipeline, X_tr, y_tr, X_te, y_te} —
+# on récupère le pipeline sklearn et les données d'entraînement (pour les
+# valeurs par défaut des variables non couvertes par le formulaire).
 try:
-    model = joblib.load('./models/baseline_logit.joblib')
-    feature_names = model.feature_names_in_
-    
-    # Formulaire interactif simple
-    st.markdown("Saisissez quelques caractéristiques démographiques et de mode de vie pour obtenir une prédiction :")
-    
-    # Exemple de variables (selon les données NHANES)
-    gender = st.selectbox("Sexe", ["Homme", "Femme"])
-    age = st.slider("Âge", 20, 80, 40)
-    race = st.selectbox("Race/origine", ["Blanc", "Noir", "Asiatique", "Autre"])
-    education = st.selectbox("Niveau d'éducation", ["Moins de 12 ans", "12 ans", "Plus de 12 ans"])
-    smoking = st.selectbox("Fumeur", ["Non", "Ancien", "Actuel"])
-    
-    # Conversion en variables numériques
-    gender_val = 1 if gender == "Homme" else 0
-    race_map = {"Blanc": 0, "Noir": 1, "Asiatique": 2, "Autre": 3}
-    race_val = race_map[race]
-    
-    edu_val = {"Moins de 12 ans": 0, "12 ans": 1, "Plus de 12 ans": 2}
-    edu_val = edu_val[education]
-    
-    smoke_map = {"Non": 0, "Ancien": 1, "Actuel": 2}
-    smoke_val = smoke_map[smoking]
-    
+    saved = joblib.load('./models/baseline_logit.joblib')
+    pipeline = saved['pipeline']
+    X_tr = saved['X_tr']
+    medianes = X_tr.median(numeric_only=True)
+
+    st.markdown(
+        "Le modèle attend 31 variables (nutrition, mode de vie, démographie). "
+        "Ajustez les principales ci-dessous ; les autres sont fixées à leur "
+        "médiane observée dans le jeu d'entraînement."
+    )
+
+    col1, col2 = st.columns(2)
+    with col1:
+        sexe = st.selectbox("Sexe", sorted(X_tr["sexe"].dropna().unique()))
+        age = st.slider("Âge", 20, 80, 40)
+        origine = st.selectbox("Origine", sorted(X_tr["origine"].dropna().unique()))
+        education = st.selectbox("Niveau d'éducation", sorted(X_tr["education"].dropna().unique()))
+    with col2:
+        statut_tabac = st.selectbox("Tabac", sorted(X_tr["statut_tabac"].dropna().unique()))
+        activite = st.slider("Activité physique (MET-min/semaine)", 0, 3000, 500, step=50)
+        sommeil = st.slider("Sommeil (h/nuit)", 3.0, 12.0, 7.5, step=0.5)
+        sedentaire = st.slider("Temps sédentaire (min/jour)", 0, 900, 360, step=30)
+
     if st.button("Calculer la prédiction"):
-        # On utilise une instance de données fictive pour tester le modèle
-        input_data = np.array([gender_val, age, race_val, edu_val, smoke_val, 0.5, 0.3, 0.1])  
-        prediction = model.predict_proba(input_data.reshape(1, -1))[0][1]
-        
-        st.metric("Probabilité de syndrome métabolique", f"{prediction:.2%}")
+        row = medianes.to_dict()
+        row.update({
+            "sexe": sexe,
+            "age": float(age),
+            "origine": origine,
+            "education": education,
+            "statut_tabac": statut_tabac,
+            "activite_met_min_sem": float(activite),
+            "sommeil_h": float(sommeil),
+            "sedentaire_min_j": float(sedentaire),
+            "transport_actif": bool(X_tr["transport_actif"].mode()[0]),
+            "cycle": X_tr["cycle"].mode()[0],
+        })
+        input_df = pd.DataFrame([row])[X_tr.columns]
+        prediction = pipeline.predict_proba(input_df)[0][1]
+
+        st.metric("Probabilité de syndrome métabolique", f"{prediction:.1%}")
         if prediction > 0.5:
-            st.markdown("⚠️ Risque élevé de syndrome métabolique.")
+            st.markdown("⚠️ Risque élevé de syndrome métabolique (au sens du modèle).")
         else:
-            st.markdown("✅ Risque faible de syndrome métabolique.")
-            
+            st.markdown("✅ Risque faible de syndrome métabolique (au sens du modèle).")
+        st.caption(
+            "Rappel : le modèle a un ROC AUC ≈ 0,68 — utile pour illustrer le pipeline, "
+            "pas pour un diagnostic individuel."
+        )
+
 except Exception as e:
-    st.info("Les prédictions ne sont pas disponibles pour le moment - chargement du modèle échoué.")
+    st.info(f"Les prédictions ne sont pas disponibles pour le moment ({e}).")
 
 # Conclusion
 st.subheader("📝 Conclusion")
