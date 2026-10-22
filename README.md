@@ -8,7 +8,7 @@ et de nutrition **NHANES** (National Health and Nutrition Examination Survey,
 CDC / États-Unis), et identification des facteurs alimentaires et de mode de vie
 les plus associés au risque.
 
-> **À propos de ce projet.** Docteur en biologie, j'ai travaillé
+> **À propos de ce projet.** Docteur en biotechnologie, j'ai travaillé
 > en R&D nutraceutique (actifs issus de microalgues, lipides, formulation). Ce
 > projet applique une chaîne machine learning complète à une question que je
 > connais côté biologie : *quels apports nutritionnels et quels comportements
